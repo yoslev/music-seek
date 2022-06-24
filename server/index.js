@@ -1,14 +1,31 @@
 // server/index.js
-const path = require('path');
+const config = require('./common/config/env.config.js');
+
 const express = require("express");
-
-const PORT = process.env.PORT || 3001;
-
 const app = express();
+
+const UsersRouter = require('./users/routes.config');
+const path = require('path');
+
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+    res.header('Access-Control-Expose-Headers', 'Content-Length');
+    res.header('Access-Control-Allow-Headers', 'Accept, Authorization, Content-Type, X-Requested-With, Range');
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    } else {
+        return next();
+    }
+});
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(express.json());
+UsersRouter.routesConfig(app);
 
+/*
 app.get("/api", (req, res) => {
     res.json({message: "Hello from server!"});
 });
@@ -41,12 +58,13 @@ app.get("/api/user", (req, res) => {
             "ageClass": 3,
         }]);
 });
+*/
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
+app.listen(config.port, () => {
+    console.log(`Server listening on ${config.port}`);
 });

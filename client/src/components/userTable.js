@@ -47,14 +47,14 @@ const rows = [
 ];
 */
 
-const customTableStyle = {width: "80%", align: "center", padding: "5px"};
+const customTableStyle = {width: "50%", align: "center", padding: "5px"};
 const customColumnStyle = {maxWidth: "5px", backgroundColor: "green", padding: "5px"};
 
 export default function CustomizedTables() {
     const [users, setUsers] = useState(null);
 
     useEffect(() => {
-        fetch("/api/user")
+        fetch("/api/v01/users")
             .then((res) => {
                 return res.json()
             })
@@ -64,39 +64,28 @@ export default function CustomizedTables() {
     }, []);
 
     if (!users) {
-        return 'Loading..'
+        return ; //'Loading..'
     }
+
     return (
         <Grid sx={{ flexGrow: 1 }} container spacing={2}>
             <TableContainer component={Paper}>
-                <Table sx={{minWidth: 100}} style={customTableStyle} aria-label="customized table">
+                <Table sx={{minWidth: 80}} style={customTableStyle} aria-label="customized table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell style={customColumnStyle}>Full Name</StyledTableCell>
-                            <StyledTableCell style={customColumnStyle} align="right">Main Instrument</StyledTableCell>
-                            <StyledTableCell style={customColumnStyle} align="right">Level</StyledTableCell>
-                            <StyledTableCell style={customColumnStyle} align="right">Secondary
-                                Instrument</StyledTableCell>
-                            <StyledTableCell style={customColumnStyle} align="right">Level</StyledTableCell>
-                            <StyledTableCell style={customColumnStyle} align="right">Region</StyledTableCell>
-                            <StyledTableCell style={customColumnStyle} align="right">Age Class</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.map((usr) => (
-                            <StyledTableRow key={usr.id}>
-                                <StyledTableCell component="th" scope="row">
-                                    {usr.firstName} {usr.lastName}
-                                </StyledTableCell>
-                                <StyledTableCell align="right">{usr.mainPayingInstrumentId}</StyledTableCell>
-                                <StyledTableCell align="right">{usr.mainPayingInstrumentLevel}</StyledTableCell>
-                                <StyledTableCell align="right">{usr.secondPayingInstrumentId}</StyledTableCell>
-                                <StyledTableCell align="right">{usr.secondPayingInstrumentLevel}</StyledTableCell>
-
-                                <StyledTableCell align="right">{usr.region}</StyledTableCell>
-                                <StyledTableCell align="right">{usr.ageClass}</StyledTableCell>
-                            </StyledTableRow>
-                        ))}
+                        {users.map((usr) =>
+                                (
+                                    <StyledTableRow key={usr.id}>
+                                        <StyledTableCell component="th" scope="row">
+                                            {usr.firstName} {usr.lastName}
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                )
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
