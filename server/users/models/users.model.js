@@ -7,7 +7,14 @@ const userSchema = new Schema({
     email: String,
     password: String,
     permissionLevel: Number,
-    __v: { type: Number, select: false}
+    __v: { type: Number, select: false},
+    mainPayingInstrumentId: Number,
+    mainPayingInstrumentLevel: Number,
+    secondPayingInstrumentId: Number,
+    secondPayingInstrumentLevel: Number,
+    musicGenres: Number,
+    region: Number,
+    ageClass: Number,
 });
 
 userSchema.virtual('id').get(function () {

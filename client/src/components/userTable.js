@@ -1,4 +1,3 @@
-//import * as React from 'react';
 import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import React, {useState, useEffect} from "react";
 import Grid from '@mui/material/Grid';
+import {getAgeClassById, getGenreById, getInstrumentById, getPlayerLevelById, getRegionById} from "../entities/enums";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -30,25 +30,10 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
         border: 0,
     },
 }));
-/*
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-*/
-
-/*
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-*/
-
-const customTableStyle = {width: "50%", align: "center", padding: "5px"};
+const customTableStyle = {width: "50%", align: "center", padding: "5px", margin: "0 auto"};
 const customColumnStyle = {maxWidth: "5px", backgroundColor: "green", padding: "5px"};
+
 
 export default function CustomizedTables() {
     const [users, setUsers] = useState(null);
@@ -68,21 +53,38 @@ export default function CustomizedTables() {
     }
 
     return (
-        <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+        <Grid spacing={1} container item xs={12} >
             <TableContainer component={Paper}>
-                <Table sx={{minWidth: 80}} style={customTableStyle} aria-label="customized table">
+                <Table style={customTableStyle} aria-label="customized table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell style={customColumnStyle}>Full Name</StyledTableCell>
+                            <StyledTableCell style={customColumnStyle} align="left">email</StyledTableCell>
+                            <StyledTableCell style={customColumnStyle} align="left">Main Instrument</StyledTableCell>
+                            <StyledTableCell style={customColumnStyle} align="left">Level</StyledTableCell>
+                            <StyledTableCell style={customColumnStyle} align="left">2nd Instrument</StyledTableCell>
+                            <StyledTableCell style={customColumnStyle} align="left">Level</StyledTableCell>
+                            <StyledTableCell style={customColumnStyle} align="left">Genre</StyledTableCell>
+                            <StyledTableCell style={customColumnStyle} align="left">Region</StyledTableCell>
+                            <StyledTableCell style={customColumnStyle} align="left">Age Class</StyledTableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody style={{width: 100}}>
                         {users.map((usr) =>
                                 (
                                     <StyledTableRow key={usr.id}>
-                                        <StyledTableCell component="th" scope="row">
+                                        <StyledTableCell component="th" scope="row" onClick={() => console.log(usr.id)}>
                                             {usr.firstName} {usr.lastName}
                                         </StyledTableCell>
+                                        <StyledTableCell align="left">{usr.email}</StyledTableCell>
+                                        <StyledTableCell align="left">{getInstrumentById(usr.mainPayingInstrumentId)}</StyledTableCell>
+                                        <StyledTableCell align="left">{getPlayerLevelById(usr.mainPayingInstrumentLevel)}</StyledTableCell>
+                                        <StyledTableCell align="left">{getInstrumentById(usr.secondPayingInstrumentId)}</StyledTableCell>
+                                        <StyledTableCell align="left">{getPlayerLevelById(usr.secondPayingInstrumentLevel)}</StyledTableCell>
+
+                                        <StyledTableCell align="left">{getGenreById(usr.musicGenres)}</StyledTableCell>
+                                        <StyledTableCell align="left">{getRegionById(usr.region)}</StyledTableCell>
+                                        <StyledTableCell align="left">{getAgeClassById(usr.ageClass)}</StyledTableCell>
                                     </StyledTableRow>
                                 )
                         )}
@@ -92,4 +94,3 @@ export default function CustomizedTables() {
         </Grid>
     );
 }
-//module.exports = CustomizedTables();

@@ -9,5 +9,8 @@ module.exports = {
         "NORMAL_USER": 1,
         "PAID_USER": 4,
         "ADMIN": 2048
-    }
+    },
+    "dbHost" : "localhost",
+    "dbPort" : 27017,
+    "dbSchema" : "music-seek",
 };
