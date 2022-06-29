@@ -31,11 +31,11 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
     },
 }));
 
-const customTableStyle = {width: "50%", align: "center", padding: "5px", margin: "0 auto"};
-const customColumnStyle = {maxWidth: "5px", backgroundColor: "green", padding: "5px"};
+const customTableStyle = {width: "100%", align: "left", padding: "5px", margin: "0 auto"};
+const customColumnStyle = {maxWidth: "100px", backgroundColor: "green", padding: "5px"};
 
 
-export default function CustomizedTables() {
+export default function UserTables() {
     const [users, setUsers] = useState(null);
 
     useEffect(() => {

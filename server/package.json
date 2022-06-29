@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "startClient": "cd client && npm start",
+    "startServer": "node index.js",
+    "startClient": "cd ../client && npm start",
     "build": "cd client && npm install && npm run build"
   },
   "engines": {
