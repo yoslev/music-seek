@@ -10,10 +10,10 @@
 }
 
 .layout {
-  display: flex;
+  display: -webkit-box;
   padding-right: 6px;
   margin-right: 12px;
-  margin-up: 1px;
+  width: max-content;
 }
 
 .nav {

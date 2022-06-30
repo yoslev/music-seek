@@ -3,7 +3,7 @@
 import "./App.css";
 import UserTables from "./components/userTable";
 
-import {BrowserRouter, Routes, Route, Outlet} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Outlet, useParams} from "react-router-dom";
 import Navbar from "./components/navbar"
 import Home from "./pages/navbar/Home"
 import Users from "./pages/navbar/Users"
@@ -33,8 +33,10 @@ const App = () => {
                 <div>
                     <Routes>
                         <Route path='/' element={<Layout/>}>
-                            <Route index element={<Home />} />
-                            <Route path='/users' element={<Users/>}/>
+                            <Route index element={<Home/>}/>
+                            <Route path='/users' element={<Users/>}>
+                                <Route path=':id' element={<User/>}/>
+                            </Route>
                             <Route path='/settings' element={<Settings/>}/>
                             <Route path='/admin' element={<Admin/>}/>
                         </Route>
@@ -44,12 +46,18 @@ const App = () => {
         </div>
     );
 } // App()
+
+function User(props) {
+    let { id } = useParams();
+    return <h1>USER id: {id}</h1>;
+}
+
 function Layout() {
     return (
         <div className="layout">
             <Navbar/>
-            <main className="layout">
-                <Outlet />
+            <main>
+                <Outlet/>
             </main>
         </div>
     );

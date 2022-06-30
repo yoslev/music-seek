@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import React, {useState, useEffect} from "react";
 import Grid from '@mui/material/Grid';
 import {getAgeClassById, getGenreById, getInstrumentById, getPlayerLevelById, getRegionById} from "../entities/enums";
+import {Link} from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -73,8 +74,8 @@ export default function UserTables() {
                         {users.map((usr) =>
                                 (
                                     <StyledTableRow key={usr.id}>
-                                        <StyledTableCell component="th" scope="row" onClick={() => console.log(usr.id)}>
-                                            {usr.firstName} {usr.lastName}
+                                        <StyledTableCell component="th" scope="row" style={{ textDecoration: 'none' }}>
+                                            <Link className={'table-link'} to={`/users/${usr.id}`}>{usr.firstName} {usr.lastName}</Link>
                                         </StyledTableCell>
                                         <StyledTableCell align="left">{usr.email}</StyledTableCell>
                                         <StyledTableCell align="left">{getInstrumentById(usr.mainPayingInstrumentId)}</StyledTableCell>
