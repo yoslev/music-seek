@@ -9,6 +9,7 @@ import Users from "./pages/navbar/Users"
 import Settings from "./pages/navbar/Settings"
 import Admin from "./pages/navbar/Admin"
 import User from "./components/user";
+import NewForm from "./test1/NewForm";
 
 const App = () => {
 
@@ -28,6 +29,9 @@ const App = () => {
                     </Routes>
                 </div>
             </BrowserRouter>
+            <div>
+                <NewForm />
+            </div>
         </div>
     );
 } // App()

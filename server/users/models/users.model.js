@@ -1,6 +1,24 @@
 const mongoose = require('../../common/services/mongoose.service').mongoose;
 const Schema = mongoose.Schema;
 
+const shortSchema = new Schema({
+    firstName: String,
+    lastName: String,
+    email: String,
+});
+shortSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+shortSchema.set('toJSON', {
+    virtuals: true
+});
+
+shortSchema.findById = function (cb) {
+    return this.model('Users').find({id: this.id}, cb);
+};
+
 const userSchema = new Schema({
     firstName: String,
     lastName: String,
@@ -31,6 +49,7 @@ userSchema.findById = function (cb) {
 };
 
 const User = mongoose.model('Users', userSchema);
+const ShortUser = mongoose.model('ShortUsers', shortSchema);
 
 
 exports.findByEmail = (email) => {
@@ -47,8 +66,9 @@ exports.findById = (id) => {
 };
 
 exports.createUser = (userData) => {
-    const user = new User(userData);
-    return user.save();
+    const user = new /*User*/ShortUser(userData);
+    let resp = user.save();
+    return resp;
 };
 
 exports.list = (perPage, page) => {
